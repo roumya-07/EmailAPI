@@ -1,0 +1,68 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="form-group col-md-12">
+            @*<div class="col-md-4 border border-dark bg-light text-center">
+                <div><h2><u>Email Form</u></h2></div>
+            </div>
+            <div class="col-md-4 border border-dark bg-light text-center">
+                <div>&nbsp;</div>
+            </div>*@
+            <div class="col-md-4 border border-dark bg-light">
+                <br />
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="">
+                            <input id="Name" placeholder="Enter Your Name" class="form-control btn-outline-dark" />
+                        </div><br />
+                        <div class="">
+                            <input id="ToEmail" placeholder="Enter Your Email Id" class="form-control btn-outline-dark" />
+                        </div><br />
+                        <div class="">
+                            <input type="button" id="Send" value="Submit" class="btn btn-dark text-white" />
+                        </div><br />
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-md-4 border border-dark bg-light text-center">
+                <div>&nbsp;</div>
+            </div>*@
+        </div>
+        </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+
+    $("#Send").click(function () {
+        Email();
+    });
+
+    function Email() {
+        $.ajax({
+            type: "post",
+            url: "http://localhost:30808/api/Email/Send",
+            data: {
+                ToEmail: $("#ToEmail").val()
+                , Subject: "Success"
+                , Body: "Thank You For Join Us." + "Mr." + $("#Name").val() + "Email: " + $("#ToEmail").val()
+                , Attachments: ""
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                alert(data);
+                if (data == 1) {
+                    alert('Data Saved successfully..');
+                }
+                else {
+                    alert("Error");
+                }
+            }
+
+        });
+        return false;
+    }
+
+</script>
